@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Meshvianex Realm MVP",
+  "type": "object",
+  "required": ["id", "name", "outbounds", "default_outbound"],
+  "properties": {
+    "id": {"type":"string", "minLength":1},
+    "name": {"type":"string", "minLength":1},
+    "schema_version": {"type":"integer", "minimum":0},
+    "version": {"type":"integer", "minimum":0},
+    "revision": {"type":"integer", "minimum":0},
+    "inputs": {"type":"array", "items":{"$ref":"#/$defs/port"}},
+    "outputs": {"type":"array", "items":{"$ref":"#/$defs/port"}},
+    "default_outbound": {"type":"string", "minLength":1},
+    "default_input": {"type":"string"},
+    "default_output": {"type":"string"},
+    "routing": {"$ref":"#/$defs/component"},
+    "config": {"$ref":"#/$defs/config_selection"},
+    "dns": {"type":"array", "items":{"$ref":"#/$defs/component"}},
+    "transforms": {"type":"array", "items":{"$ref":"#/$defs/component"}},
+    "protocols": {"type":"array", "items":{"$ref":"#/$defs/component"}},
+    "transports": {"type":"array", "items":{"$ref":"#/$defs/component"}},
+    "outbounds": {"type":"array", "items":{"$ref":"#/$defs/component"}, "minItems":1},
+    "inbounds": {"type":"array", "items":{"$ref":"#/$defs/component"}},
+    "probes": {"type":"array", "items":{"$ref":"#/$defs/component"}},
+    "subscription_refs": {"type":"array", "items":{"type":"string","minLength":1}},
+    "config_refs": {"type":"array", "items":{"type":"string","minLength":1}},
+    "data_plane": {"$ref":"#/$defs/plane"},
+    "control_plane": {"$ref":"#/$defs/plane"}
+  },
+  "$defs": {
+    "component": {
+      "type":"object",
+      "required":["instance_id","plugin","enabled"],
+      "properties": {
+        "instance_id":{"type":"string"},
+        "plugin":{"type":"string"},
+        "enabled":{"type":"boolean"},
+        "config_ref":{"type":"string"},
+        "protocol":{"type":"string"},
+        "transport":{"type":"string"},
+        "stage":{"type":"string","enum":["pre_route","post_route","pre_protocol","post_protocol","pre_transport","post_transport","pre_socket","stream_open","handshake","stream_data","stream_close"]},
+        "config":{"type":"object"}
+      },
+      "additionalProperties": false
+    },
+    "config_selection": {
+      "type":"object",
+      "required":["instance_id","plugin","enabled","source_type","source_ref"],
+      "properties": {
+        "instance_id":{"type":"string","minLength":1},
+        "plugin":{"type":"string","minLength":1},
+        "enabled":{"type":"boolean"},
+        "source_type":{"enum":["config","subscription"]},
+        "source_ref":{"type":"string","minLength":1},
+        "config":{"type":"object"}
+      },
+      "additionalProperties": false
+    },
+    "port": {
+      "type":"object",
+      "required":["name","type"],
+      "properties":{"name":{"type":"string","minLength":1},"type":{"enum":["flow","packet","stream","datagram","control","metadata"]}},
+      "additionalProperties": false
+    },
+    "plane": {
+      "type":"object",
+      "properties":{"input":{"type":"string"},"output":{"type":"string"},"outbound":{"type":"string"}},
+      "additionalProperties": false
+    }
+  }
+}

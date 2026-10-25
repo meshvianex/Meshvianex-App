@@ -1,0 +1,26 @@
+{
+  "realm": {
+    "id": "proxied",
+    "name": "HTTP Upstream Realm",
+    "routing": {
+      "instance_id": "rules-main",
+      "plugin": "io.meshvianex.rules.basic",
+      "enabled": true,
+      "config": {
+        "default":"proxy-main",
+        "rules":[
+          {"domain_suffix":".local","outbound":"direct-main","reason":"local domains stay direct"},
+          {"cidr":"127.0.0.0/8","outbound":"direct-main","reason":"loopback stays direct"}
+        ]
+      }
+    },
+    "dns": [{"instance_id":"dns-main","plugin":"io.meshvianex.dns.system","enabled":true,"config":{}}],
+    "outbounds": [
+      {"instance_id":"direct-main","plugin":"io.meshvianex.direct","enabled":true,"config":{}},
+      {"instance_id":"proxy-main","plugin":"io.meshvianex.outbound.http","enabled":true,"config":{"url":"http://127.0.0.1:10808","timeout_seconds":15}}
+    ],
+    "inbounds": [{"instance_id":"http-local","plugin":"io.meshvianex.inbound.http","enabled":true,"config":{"listen":"127.0.0.1:8080"}}],
+    "default_outbound": "proxy-main"
+  },
+  "ui": {"enabled":true,"config":{"listen":"127.0.0.1:8787","title":"Meshvianex — proxied"}}
+}

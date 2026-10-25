@@ -1,0 +1,12 @@
+    .realm-canvas{position:relative;overflow:hidden;touch-action:none}
+    .topology-viewport{position:absolute;inset:0;overflow:auto;touch-action:none;cursor:grab}
+    .topology-viewport.is-panning{cursor:grabbing}
+    .realm-canvas-inner{overflow:visible}
+    .topology-stage{position:relative;width:1000px;height:600px;transform-origin:top left}
+    .topology-stage>.topology-links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+    .realm-canvas:fullscreen{width:100vw;height:100vh;min-height:100vh;border-radius:0}
+    .realm-canvas:fullscreen .topology-viewport{position:absolute;inset:0}
+    .realm-canvas:fullscreen .realm-canvas-inner{width:1000px!important;min-width:1000px!important;height:600px!important;min-height:600px!important}
+    .realm-canvas:fullscreen .topology-stage{width:1000px;height:600px}
+    .realm-canvas:fullscreen .canvas-tools{position:absolute;top:18px;right:20px}
+  

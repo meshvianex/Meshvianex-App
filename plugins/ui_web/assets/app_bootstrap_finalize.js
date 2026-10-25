@@ -1,0 +1,1 @@
+legacyAddConfig=openConfigImport;

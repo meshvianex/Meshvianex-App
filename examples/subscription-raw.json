@@ -1,0 +1,9 @@
+{
+  "id": "office-feed",
+  "name": "Office feed",
+  "source": "direct://\nhttp://127.0.0.1:10808\nsocks5h://127.0.0.1:10808",
+  "source_type": "raw",
+  "parser_plugin": "io.meshvianex.config.parser.basic",
+  "enabled": true,
+  "refresh_interval": "15m"
+}

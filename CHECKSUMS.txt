@@ -1,0 +1,3 @@
+0bb23750d5d39e23927b1b8a8d016c9e8d4b514895be3952f4b55fd08e19e0e3  README.md
+696fc7582d56ddd0249821c5d240dbc669f6a45ea4193d9eb3c5fd66fc21f76a  go.mod
+fee4df3c2cf5d5bba811688f02aea495c4753bfd51e31fbd71db114474f096aa  plugins/ui_web/assets/meshvianex-logo.png

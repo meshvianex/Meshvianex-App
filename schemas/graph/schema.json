@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Meshvianex Graph MVP",
+  "type": "object",
+  "required": ["graph_id", "schema_version", "nodes", "edges"],
+  "properties": {
+    "graph_id":{"type":"string"},
+    "name":{"type":"string"},
+    "schema_version":{"const":1},
+    "revision":{"type":"integer","minimum":0},
+    "nodes":{"type":"array", "items":{"$ref":"#/$defs/node"}},
+    "edges":{"type":"array", "items":{"$ref":"#/$defs/edge"}}
+  },
+  "$defs": {
+    "port":{"type":"object","required":["name","type","direction"],"properties":{"name":{"type":"string"},"type":{"enum":["flow","packet","stream","datagram","control","metadata"]},"direction":{"enum":["input","output"]}},"additionalProperties":false},
+    "node":{"type":"object","required":["id","type","ports"],"properties":{"id":{"type":"string"},"type":{"enum":["realm","platform_inbound","platform_outbound","service","sink","source","virtual"]},"realm_id":{"type":"string"},"ports":{"type":"array","items":{"$ref":"#/$defs/port"}}},"additionalProperties":false},
+    "endpoint":{"type":"object","required":["node","port"],"properties":{"node":{"type":"string"},"port":{"type":"string"}},"additionalProperties":false},
+    "condition":{"type":"object","properties":{"purpose":{"type":"string"},"min_health":{"type":"integer","minimum":1,"maximum":100},"network_state":{"type":"string"},"tags":{"type":"object","additionalProperties":{"type":"string"}}},"additionalProperties":false},
+    "edge":{"type":"object","required":["id","from","to"],"properties":{"id":{"type":"string"},"from":{"$ref":"#/$defs/endpoint"},"to":{"$ref":"#/$defs/endpoint"},"type":{"enum":["direct","conditional","failover","weighted","mirror","control"]},"group":{"type":"string"},"priority":{"type":"integer"},"weight":{"type":"integer","minimum":0},"when":{"$ref":"#/$defs/condition"}},"additionalProperties":false}
+  }
+}

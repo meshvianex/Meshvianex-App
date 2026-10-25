@@ -1,0 +1,30 @@
+{
+  "realm": {
+    "id": "xray-relay",
+    "name": "Xray TCP relay",
+    "schema_version": 1,
+    "revision": 1,
+    "outbounds": [
+      {
+        "instance_id": "xray-main",
+        "plugin": "io.meshvianex.outbound.xray",
+        "enabled": true,
+        "config": {
+          "config_path": "./examples/xray-freedom.json",
+          "startup_timeout_seconds": 15,
+          "shutdown_timeout_seconds": 5
+        }
+      }
+    ],
+    "inbounds": [
+      {
+        "instance_id": "http-local",
+        "plugin": "io.meshvianex.inbound.http",
+        "enabled": true,
+        "config": {"listen": "127.0.0.1:8080"}
+      }
+    ],
+    "default_outbound": "xray-main"
+  },
+  "ui": {"enabled": true, "config": {"listen": "127.0.0.1:8787", "title": "Meshvianex — Xray TCP relay"}}
+}

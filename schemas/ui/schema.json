@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Meshvianex Portable UI Schema MVP",
+  "type":"object",
+  "required":["page","title","fields"],
+  "$defs": {
+    "config_schema": {
+      "type":"object",
+      "properties": {
+        "title":{"type":"string"},
+        "description":{"type":"string"},
+        "fields":{"type":"array","items":{"$ref":"#/$defs/config_field"}}
+      },
+      "required":["fields"],
+      "additionalProperties":false
+    },
+    "config_field": {
+      "type":"object",
+      "required":["id","type"],
+      "properties": {
+        "id":{"type":"string","pattern":"^[A-Za-z][A-Za-z0-9_.-]*$"},
+        "type":{"type":"string","enum":["text","url","host_port","secret","number","boolean","select","array","object"]},
+        "label":{"type":"string"},
+        "description":{"type":"string"},
+        "placeholder":{"type":"string"},
+        "required":{"type":"boolean"},
+        "default":{},
+        "options":{"type":"array","items":{"type":"object","required":["value","label"],"properties":{"value":{"type":"string"},"label":{"type":"string"}},"additionalProperties":false}},
+        "fields":{"type":"array","items":{"$ref":"#/$defs/config_field"}},
+        "item_fields":{"type":"array","items":{"$ref":"#/$defs/config_field"}},
+        "min":{"type":"number"},"max":{"type":"number"},"step":{"type":"number"}
+      },
+      "additionalProperties":false
+    }
+  },
+  "properties": {
+    "page":{"type":"string"},
+    "title":{"type":"string"},
+    "fields":{"type":"array","items":{"type":"object"}}
+  }
+}

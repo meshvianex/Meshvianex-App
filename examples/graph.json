@@ -1,0 +1,26 @@
+{
+  "realm": {
+    "id": "graph-demo",
+    "name": "Graph Demo Realm",
+    "routing": {"instance_id":"rules","plugin":"io.meshvianex.rules.basic","enabled":true,"config":{"default":"direct","rules":[]}},
+    "outbounds": [{"instance_id":"direct","plugin":"io.meshvianex.direct","enabled":true,"config":{}}],
+    "inbounds": [],
+    "default_outbound": "direct"
+  },
+  "ui": {"enabled": false, "config": {}},
+  "graph": {
+    "graph_id": "demo",
+    "name": "Ordered path demo",
+    "schema_version": 1,
+    "revision": 1,
+    "nodes": [
+      {"id":"source","type":"source","ports":[{"name":"out","type":"flow","direction":"output"}]},
+      {"id":"realm-primary","type":"realm","realm_id":"primary","ports":[{"name":"in","type":"flow","direction":"input"},{"name":"out","type":"flow","direction":"output"}]},
+      {"id":"internet","type":"sink","ports":[{"name":"in","type":"flow","direction":"input"}]}
+    ],
+    "edges": [
+      {"id":"e1","from":{"node":"source","port":"out"},"to":{"node":"realm-primary","port":"in"},"type":"direct","priority":0,"when":{"purpose":"user_traffic"}},
+      {"id":"e2","from":{"node":"realm-primary","port":"out"},"to":{"node":"internet","port":"in"},"type":"direct","priority":0}
+    ]
+  }
+}

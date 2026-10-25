@@ -1,0 +1,21 @@
+{
+  "realm": {
+    "id": "socks-relay",
+    "name": "SOCKS5 relay",
+    "schema_version": 1,
+    "revision": 1,
+    "routing": {
+      "instance_id": "rules",
+      "plugin": "io.meshvianex.rules.basic",
+      "enabled": true,
+      "config": {"default": "socks-main", "rules": []}
+    },
+    "dns": [{"instance_id": "dns-main", "plugin": "io.meshvianex.dns.system", "enabled": true, "config": {}}],
+    "outbounds": [
+      {"instance_id": "socks-main", "plugin": "io.meshvianex.outbound.socks5", "enabled": true, "config": {"url": "socks5://127.0.0.1:10808", "timeout_seconds": 15}}
+    ],
+    "inbounds": [{"instance_id": "http-local", "plugin": "io.meshvianex.inbound.http", "enabled": true, "config": {"listen": "127.0.0.1:8080"}}],
+    "default_outbound": "socks-main"
+  },
+  "ui": {"enabled": true, "config": {"listen": "127.0.0.1:8787", "title": "Meshvianex — SOCKS5 relay"}}
+}
