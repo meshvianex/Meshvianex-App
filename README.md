@@ -1,4 +1,5 @@
 # Meshvianex
+<img width="1916" height="1006" alt="meshvianex-images" src="https://github.com/user-attachments/assets/2851c0af-fcc4-41f8-b2b5-1b6fffadf8de" />
 
 Meshvianex is an architecture-validating MVP of a resilient, modular networking runtime for unreliable or constrained networks. The name brings together **Mesh**, **Via**, and **Nex** to reflect interconnected paths, routing, and modular Realm/Graph connections.
 
