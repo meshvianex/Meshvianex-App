@@ -40,6 +40,8 @@ import (
 	"meshvianex/plugins/xray_outbound"
 )
 
+const appVersion = "v0.2.0-alpha"
+
 type AppConfig struct {
 	Realm realm.Config `json:"realm"`
 	UI    struct {
@@ -60,11 +62,16 @@ func main() {
 		return
 	}
 	configPath := flag.String("config", "examples/direct.json", "configuration JSON")
+	showVersion := flag.Bool("version", false, "print application version and exit")
 	validateOnly := flag.Bool("validate", false, "validate configuration and exit")
 	traceNode := flag.String("trace", "", "trace graph from node and exit")
 	purpose := flag.String("purpose", "user_traffic", "purpose used with -trace")
 	stateDir := flag.String("state-dir", "", "persistent subscriptions/configs state directory")
 	flag.Parse()
+	if *showVersion {
+		fmt.Println(appVersion)
+		return
+	}
 	raw, err := os.ReadFile(*configPath)
 	if err != nil {
 		log.Fatal(err)
